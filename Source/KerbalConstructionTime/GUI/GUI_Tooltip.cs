@@ -60,16 +60,17 @@ namespace KerbalConstructionTime
                     if (_tooltipText != _prevNonEmptyTooltipText)
                     {
                         _isTooltipChanged = true;
-                        _tooltipBeginDt = DateTime.UtcNow;
+                    _tooltipBeginDt = DateTime.UtcNow;
                         _prevNonEmptyTooltipText = _tooltipText;
-                    }
                 }
+                _tooltipText = GUI.tooltip;
+            }
                 else if (windowID == _tooltipActiveWindowId)
                 {
                     _tooltipActiveWindowId = 0;
                     _isTooltipChanged = true;
                     _prevNonEmptyTooltipText = string.Empty;
-                }
+        }
             }
         }
 
@@ -101,6 +102,23 @@ namespace KerbalConstructionTime
                     _tooltipStyle);
                 GUI.BringWindowToFront(id);
             }
+        }
+
+        private static GUIStyle GetTooltipStyle()
+        {
+            if (_tooltipStyle == null)
+            {
+                Texture2D backTex = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                backTex.SetPixel(0, 0, new Color(0.5f, 0.5f, 0.5f));
+                backTex.Apply();
+
+                _tooltipStyle = new GUIStyle(HighLogic.Skin.label);
+                _tooltipStyle.normal.background = backTex;
+                _tooltipStyle.normal.textColor = new Color32(224, 224, 224, 255);
+                _tooltipStyle.padding = new RectOffset(3, 3, 3, 3);
+                _tooltipStyle.alignment = TextAnchor.MiddleCenter;
+            }
+            return _tooltipStyle;
         }
     }
 }

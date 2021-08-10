@@ -206,6 +206,7 @@ namespace KerbalConstructionTime
             GUILayout.EndHorizontal();
             GUILayout.EndVertical();
             CenterWindow(ref _crewListWindowPosition);
+            RecordTooltip();
         }
 
         private static void RemoveAllCrewFromPods()
